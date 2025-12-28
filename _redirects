@@ -1,0 +1,17 @@
+# YouTube Premium Affiliate Redirects (Soft Routing)
+# Format: /local-path target-url status-code
+
+# [cite_start]星际放映厅 (Star Cinema) - 280元/年 [cite: 56]
+/go/star  https://www.naifeistation.com/i/Satqr  302
+
+# [cite_start]银河录像局 (Galaxy) - 高稳定性 [cite: 63]
+/go/yinhe  https://nf.video/24MAX  302
+
+# [cite_start]账号星球 (Account Planet) - 月付/灵活 [cite: 74]
+/go/planet  https://accboyytbxmdh.acceboy.com/zh-cn-cny/buy-ytb  302
+
+# [cite_start]奈飞小铺 (Netflix Shop) - 备选 [cite: 84]
+/go/naifei  https://www.ihezu.cn/?sid=v9eUbF  302
+
+# 小木导航 (Tool)
+/go/nav     https://nav.xmpick.com  302
