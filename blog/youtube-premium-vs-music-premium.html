@@ -32,14 +32,84 @@
     .gradient-text { background: linear-gradient(to right, #ff0000, #ff4d4d); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     
     /* Article Styles */
-    article h2 { font-size: 1.875rem; line-height: 2.25rem; font-weight: 700; color: #fff; margin-top: 2.5rem; margin-bottom: 1.25rem; }
-    article h3 { font-size: 1.5rem; line-height: 2rem; font-weight: 600; color: #e5e5e5; margin-top: 2rem; margin-bottom: 1rem; }
-    article p { margin-bottom: 1.5rem; line-height: 1.75; color: #d1d5db; }
-    article ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1.5rem; color: #d1d5db; }
-    article li { margin-bottom: 0.5rem; }
-    article strong { color: #fff; font-weight: 600; }
-    article a { color: #ef4444; text-decoration: underline; text-underline-offset: 4px; }
-    article a:hover { color: #ff0000; }
+    article {
+        font-size: 1.125rem; /* 18px base size */
+    }
+    article h2 { 
+        font-size: 1.875rem; 
+        line-height: 1.3; 
+        font-weight: 800; 
+        color: #fff; 
+        margin-top: 3rem; 
+        margin-bottom: 1.5rem; 
+        display: flex;
+        align-items: center;
+    }
+    article h2::before {
+        content: '';
+        display: block;
+        width: 6px;
+        height: 24px;
+        background: linear-gradient(to bottom, #ff0000, #ff4d4d);
+        margin-right: 1rem;
+        border-radius: 4px;
+    }
+    article h3 { 
+        font-size: 1.5rem; 
+        line-height: 1.4; 
+        font-weight: 700; 
+        color: #f3f4f6; 
+        margin-top: 2.5rem; 
+        margin-bottom: 1rem; 
+    }
+    article p { 
+        margin-bottom: 1.75rem; 
+        line-height: 1.8; 
+        color: #d1d5db; 
+    }
+    article ul { 
+        list-style: none; 
+        padding-left: 0; 
+        margin-bottom: 2rem;
+    }
+    article ul li { 
+        margin-bottom: 1rem; 
+        padding-left: 2rem;
+        position: relative;
+        color: #d1d5db;
+        line-height: 1.7;
+    }
+    article ul li::before {
+        content: '\f00c';
+        font-family: "Font Awesome 6 Free";
+        font-weight: 900;
+        position: absolute;
+        left: 0;
+        top: 0.25rem;
+        color: #ef4444; /* red-500 */
+        font-size: 1rem;
+    }
+    article strong { color: #fff; font-weight: 700; }
+    article a { 
+        color: #ef4444; 
+        text-decoration: none; 
+        border-bottom: 1px dashed #ef4444; 
+        transition: all 0.2s;
+    }
+    article a:hover { 
+        color: #ff0000; 
+        border-bottom-style: solid; 
+    }
+    /* Blockquote style */
+    article blockquote {
+        border-left: 4px solid #ef4444;
+        background: rgba(255,255,255,0.05);
+        padding: 1.5rem;
+        border-radius: 0 1rem 1rem 0;
+        margin: 2rem 0;
+        font-style: italic;
+        color: #e5e7eb;
+    }
   </style>
 
   <meta name="geo.region" content="CN">
@@ -125,127 +195,135 @@
       <div class="flex flex-col lg:flex-row gap-12">
         
         <!-- Left Column: Article (70%) -->
-        <main class="w-full lg:w-[70%]">
-          <article>
-            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-8 text-white leading-tight">
-              YouTube Premium vs Music Premium<br>
-              <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500">区别大解析？2026 选购指南</span>
-            </h1>
-            
-            <div class="flex items-center gap-4 text-sm text-gray-500 mb-10 pb-10 border-b border-white/10">
-              <span class="flex items-center"><i class="fa-regular fa-calendar mr-2"></i> 2026-01-04</span>
-              <span class="flex items-center"><i class="fa-regular fa-clock mr-2"></i> 4 分钟阅读</span>
-              <span class="bg-red-500/10 text-red-500 px-2 py-0.5 rounded text-xs font-bold">对比评测</span>
-            </div>
+        <main class="w-full lg:w-[70%] lg:pr-8">
+          <div class="bg-[#151515] rounded-3xl p-8 md:p-12 border border-white/5 shadow-2xl relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500"></div>
+            <article>
+              <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-8 text-white leading-tight">
+                YouTube Premium vs Music Premium<br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500">区别大解析与选购指南</span>
+              </h1>
+              
+              <div class="flex items-center gap-4 text-sm text-gray-500 mb-10 pb-10 border-b border-white/10">
+                <span class="flex items-center"><i class="fa-regular fa-calendar mr-2"></i> 2026-01-04</span>
+                <span class="flex items-center"><i class="fa-regular fa-clock mr-2"></i> 4 分钟阅读</span>
+                <span class="bg-red-500/10 text-red-500 px-2 py-0.5 rounded text-xs font-bold">对比评测</span>
+              </div>
 
-            <p class="text-xl text-gray-300 font-medium leading-relaxed mb-10">
-              很多用户在订阅时会感到困惑：YouTube Premium 和 YouTube Music Premium 到底有什么区别？我该买哪个？简单来说，前者是“全家桶”，后者是“音乐专供”。本文将深度对比两者的权益差异，助您根据自己的使用习惯，选择性价比最高的方案。
-            </p>
+              <p class="text-xl text-gray-300 font-medium leading-relaxed mb-10">
+                很多用户在订阅时会感到困惑：YouTube Premium 和 YouTube Music Premium 到底有什么区别？价格差不了多少，该选哪一个？简单来说，这是一个“包含与被包含”的关系。本文将用最直观的方式，帮您理清两者关系，做出最划算的选择。
+              </p>
 
-            <h2>核心区别一览</h2>
-            <p>
-              一句话总结：<strong>YouTube Premium 包含了 YouTube Music Premium 的所有权益。</strong> 你可以把它理解为“俄罗斯套娃”的关系。
-            </p>
-
-            <h3>1. YouTube Premium：“视频+音乐”全家桶</h3>
-            <p>
-              这是 Google 推出的最全面的会员服务，主要面向视频重度用户，同时也兼顾了音乐需求。
-            </p>
-            <ul>
-              <li><strong>无广告观看：</strong> 观看 YouTube 所有视频（长视频、Shorts、直播）全程无广告，体验丝滑。</li>
-              <li><strong>后台播放：</strong> 锁屏或切换到其他 App 时，视频声音继续播放。非常适合听博客、访谈或新闻。</li>
-              <li><strong>离线下载：</strong> 将视频缓存到手机，无网也能看，通勤神器。</li>
-              <li><strong>赠送 Music 会员：</strong> 自动包含 YouTube Music Premium 的全部权益。</li>
-            </ul>
-
-            <h3>2. YouTube Music Premium：“纯粹的音乐服务”</h3>
-            <p>
-              这是一个对标 Spotify 和 Apple Music 的独立音乐流媒体服务。
-            </p>
-            <ul>
-              <li><strong>无广告听歌：</strong> 在 YouTube Music App 中听歌无广告干扰。</li>
-              <li><strong>后台播放：</strong> 锁屏听歌，支持纯音频模式（省流量）。</li>
-              <li><strong>离线下载：</strong> 下载歌曲和歌单到本地。</li>
-              <li><strong>独家优势：</strong> 曲库与 YouTube 视频库强关联，能找到很多现场版（Live）、翻唱（Cover）等其他平台没有的独家音源。</li>
-            </ul>
-
-            <div class="bg-[#151515] p-6 rounded-2xl border border-white/10 my-8">
-              <h4 class="text-white font-bold mb-4">权益对比表</h4>
-              <div class="overflow-x-auto">
-                <table class="w-full text-sm text-left text-gray-400">
-                  <thead class="text-xs text-gray-200 uppercase bg-white/5">
-                    <tr>
-                      <th scope="col" class="px-6 py-3 rounded-l-lg">功能权益</th>
-                      <th scope="col" class="px-6 py-3">YouTube Music Premium</th>
-                      <th scope="col" class="px-6 py-3 rounded-r-lg text-red-500">YouTube Premium</th>
+              <h2>一图看懂核心区别</h2>
+              <div class="overflow-x-auto my-8">
+                <table class="w-full text-left border-collapse">
+                  <thead>
+                    <tr class="border-b border-white/10">
+                      <th class="py-4 px-4 text-gray-400 font-medium">权益 / 会员类型</th>
+                      <th class="py-4 px-4 text-white font-bold text-lg">YouTube Music Premium</th>
+                      <th class="py-4 px-4 text-red-500 font-bold text-lg">YouTube Premium</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody class="text-sm">
                     <tr class="border-b border-white/5">
-                      <td class="px-6 py-4 font-medium text-white">Music App 无广告</td>
-                      <td class="px-6 py-4 text-green-500"><i class="fa-solid fa-check"></i></td>
-                      <td class="px-6 py-4 text-green-500"><i class="fa-solid fa-check"></i></td>
+                      <td class="py-4 px-4 text-gray-300">听歌无广告 (YouTube Music App)</td>
+                      <td class="py-4 px-4 text-green-500"><i class="fa-solid fa-check"></i> 支持</td>
+                      <td class="py-4 px-4 text-green-500"><i class="fa-solid fa-check"></i> 支持</td>
                     </tr>
                     <tr class="border-b border-white/5">
-                      <td class="px-6 py-4 font-medium text-white">Music 后台播放</td>
-                      <td class="px-6 py-4 text-green-500"><i class="fa-solid fa-check"></i></td>
-                      <td class="px-6 py-4 text-green-500"><i class="fa-solid fa-check"></i></td>
+                      <td class="py-4 px-4 text-gray-300">后台听歌/离线下载</td>
+                      <td class="py-4 px-4 text-green-500"><i class="fa-solid fa-check"></i> 支持</td>
+                      <td class="py-4 px-4 text-green-500"><i class="fa-solid fa-check"></i> 支持</td>
+                    </tr>
+                    <tr class="border-b border-white/5 bg-white/5">
+                      <td class="py-4 px-4 text-gray-300 font-bold">看视频无广告 (YouTube App)</td>
+                      <td class="py-4 px-4 text-gray-600"><i class="fa-solid fa-xmark"></i> 不支持</td>
+                      <td class="py-4 px-4 text-green-500"><i class="fa-solid fa-check"></i> 支持 (核心权益)</td>
+                    </tr>
+                    <tr class="border-b border-white/5 bg-white/5">
+                      <td class="py-4 px-4 text-gray-300 font-bold">视频后台播放 (画中画)</td>
+                      <td class="py-4 px-4 text-gray-600"><i class="fa-solid fa-xmark"></i> 不支持</td>
+                      <td class="py-4 px-4 text-green-500"><i class="fa-solid fa-check"></i> 支持</td>
                     </tr>
                     <tr class="border-b border-white/5">
-                      <td class="px-6 py-4 font-medium text-white">YouTube 视频无广告</td>
-                      <td class="px-6 py-4 text-gray-600"><i class="fa-solid fa-xmark"></i></td>
-                      <td class="px-6 py-4 text-green-500"><i class="fa-solid fa-check"></i></td>
-                    </tr>
-                    <tr class="border-b border-white/5">
-                      <td class="px-6 py-4 font-medium text-white">YouTube 视频后台播放</td>
-                      <td class="px-6 py-4 text-gray-600"><i class="fa-solid fa-xmark"></i></td>
-                      <td class="px-6 py-4 text-green-500"><i class="fa-solid fa-check"></i></td>
+                      <td class="py-4 px-4 text-gray-300">美区官方个人月费</td>
+                      <td class="py-4 px-4 text-gray-300">$10.99/月</td>
+                      <td class="py-4 px-4 text-red-400 font-bold">$13.99/月 (仅多 $3)</td>
                     </tr>
                   </tbody>
                 </table>
               </div>
-            </div>
 
-            <h2>怎么选最划算？</h2>
-            
-            <h3>选 YouTube Premium（全家桶）如果：</h3>
-            <ul class="list-none pl-0 space-y-2">
-              <li class="flex items-start gap-2"><i class="fa-solid fa-check text-red-500 mt-1"></i> 你是视频重度用户，无法忍受广告。</li>
-              <li class="flex items-start gap-2"><i class="fa-solid fa-check text-red-500 mt-1"></i> 你需要“听视频”功能（后台播放）。</li>
-              <li class="flex items-start gap-2"><i class="fa-solid fa-check text-red-500 mt-1"></i> 你希望一份订阅解决视频和音乐两个需求。</li>
-            </ul>
-            <p class="text-sm text-gray-400 mt-2">
-              <strong>性价比提示：</strong> 虽然 Premium 价格稍高，但通过<a href="../index.html#pricing">家庭组拼车</a>，年费仅需 ¥50-100 左右，比单独订阅 Music 会员还要便宜得多！
-            </p>
+              <h2>详细对比解析</h2>
 
-            <h3>选 YouTube Music Premium（单点）如果：</h3>
-            <ul class="list-none pl-0 space-y-2">
-              <li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-500 mt-1"></i> 你只用 YouTube 听歌，几乎不看视频。</li>
-              <li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-500 mt-1"></i> 你对视频广告不敏感。</li>
-              <li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-500 mt-1"></i> 你的预算非常有限（虽然合租 Premium 其实更划算）。</li>
-            </ul>
+              <h3>1. YouTube Music Premium：纯粹的音乐服务</h3>
+              <p>
+                它对标的是 Spotify 和 Apple Music。订阅它，你只能在 <strong>YouTube Music App</strong> 中享受无广告听歌、后台播放和下载权益。
+              </p>
+              <p>
+                <strong>痛点：</strong> 当你切换到 YouTube 主 App 看 MV 或其他视频时，广告依然存在，也不能后台播放。
+              </p>
 
-            <h2>结论</h2>
-            <p>
-              对于大多数用户，尤其是国内用户，<strong>直接上车 YouTube Premium 家庭组</strong>是唯一的“版本答案”。
-            </p>
-            <p>
-              原因很简单：你花一份买音乐会员的钱（甚至更少），不仅拥有了顶级的音乐服务，还顺带解锁了全球最大的视频平台的完美体验。相当于“买一送一”，何乐而不为？
-            </p>
-            <div class="mt-12 pt-8 border-t border-white/10">
-              <h3 class="text-xl font-bold text-white mb-6">推荐阅读</h3>
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <a href="is-youtube-premium-worth-it.html" class="block p-4 rounded-xl bg-white/5 hover:bg-white/10 transition border border-white/5">
-                  <span class="text-xs text-purple-400 font-bold mb-2 block">深度评测</span>
-                  <h4 class="text-sm font-bold text-white">2026 YouTube Premium 值得买吗？真实评测</h4>
-                </a>
-                <a href="youtube-premium-cheapest-region-guide.html" class="block p-4 rounded-xl bg-white/5 hover:bg-white/10 transition border border-white/5">
-                  <span class="text-xs text-red-400 font-bold mb-2 block">省钱攻略</span>
-                  <h4 class="text-sm font-bold text-white">YouTube Premium 哪个区最便宜？2026 全球比价</h4>
-                </a>
+              <h3>2. YouTube Premium：全家桶体验</h3>
+              <p>
+                这是 Google 的“终极会员”。它不仅包含了 <strong>所有的 YouTube Music Premium 权益</strong>，还解锁了 YouTube 视频端的所有高级功能。
+              </p>
+              <p>
+                也就是说：<strong>YouTube Premium = YouTube 视频会员 + YouTube Music 音乐会员</strong>。
+              </p>
+
+              <blockquote class="my-8">
+                <h4 class="text-white font-bold mb-2 not-italic">💡 选购建议</h4>
+                <p class="text-sm text-gray-400 m-0! not-italic">
+                  除非你完全不看 YouTube 视频，只听歌，否则 <strong>强烈建议直接订阅 YouTube Premium</strong>。价格只贵了 20-30%，但体验是全方位的提升。
+                </p>
+              </blockquote>
+
+              <h2>如何以“音乐会员”的价格买到“全家桶”？</h2>
+              <p>
+                官方定价中，两者有差价。但通过<a href="../index.html#pricing">家庭组拼车</a>，你可以用比 Music Premium 官方价还低得多的价格，享受到完整的 YouTube Premium 服务。
+              </p>
+              <p>
+                例如：美区 Music Premium 个人版要 $10.99（约 ¥78），而通过合租平台加入美区 YouTube Premium 家庭组，每月仅需 ¥8-15 元。<strong>相当于 1 折拿下了更高级的会员。</strong>
+              </p>
+
+              <h2>总结</h2>
+              <ul class="list-none pl-0 space-y-4 !mb-8">
+                <li class="flex items-start gap-3 bg-[#1f1f1f] p-4 rounded-xl !pl-4 !before:content-none">
+                  <i class="fa-solid fa-check text-green-500 mt-1"></i>
+                  <div>
+                    <strong class="block text-white mb-1">选 YouTube Premium 如果你：</strong>
+                    <span class="text-sm text-gray-400">既看视频又听歌，或者经常看长视频、学习资料。</span>
+                  </div>
+                </li>
+                <li class="flex items-start gap-3 bg-[#1f1f1f] p-4 rounded-xl !pl-4 !before:content-none">
+                  <i class="fa-solid fa-music text-blue-500 mt-1"></i>
+                  <div>
+                    <strong class="block text-white mb-1">选 Music Premium 如果你：</strong>
+                    <span class="text-sm text-gray-400">（极少见情况）只听歌，完全不打开 YouTube 看视频，且预算极度有限。</span>
+                  </div>
+                </li>
+              </ul>
+
+              <p class="mt-10">
+                不要纠结了，一步到位选择 <a href="../index.html#pricing">YouTube Premium 合租</a>，从此视频、音乐双自由。
+              </p>
+              
+              <div class="mt-12 pt-8 border-t border-white/10">
+                <h3 class="text-xl font-bold text-white mb-6">推荐阅读</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <a href="is-youtube-premium-worth-it.html" class="block p-4 rounded-xl bg-white/5 hover:bg-white/10 transition border border-white/5">
+                    <span class="text-xs text-purple-400 font-bold mb-2 block">深度评测</span>
+                    <h4 class="text-sm font-bold text-white">2026 YouTube Premium 值得买吗？真实评测</h4>
+                  </a>
+                  <a href="youtube-premium-cheapest-region-guide.html" class="block p-4 rounded-xl bg-white/5 hover:bg-white/10 transition border border-white/5">
+                    <span class="text-xs text-red-400 font-bold mb-2 block">省钱攻略</span>
+                    <h4 class="text-sm font-bold text-white">YouTube Premium 哪个区最便宜？2026 全球比价</h4>
+                  </a>
+                </div>
               </div>
-            </div>
-          </article>
+            </article>
+          </div>
         </main>
 
         <!-- Right Column: Sales Card (30%) - Sticky -->
