@@ -123,23 +123,50 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Article",
-    "headline": "YouTube Premium 值得买吗？2026 真实评测与省钱订阅指南",
-    "image": "https://ythezu.top/assets/og-cover.png",  
-    "author": {
-      "@type": "Organization",
-      "name": "YThezu.top"
-    },  
-    "publisher": {
-      "@type": "Organization",
-      "name": "YThezu.top",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://ythezu.top/favicon.svg"
+    "@graph": [
+      {
+        "@type": "Article",
+        "headline": "YouTube Premium 值得买吗？2026 真实评测与省钱订阅指南",
+        "image": "https://ythezu.top/assets/og-cover.png",  
+        "author": {
+          "@type": "Organization",
+          "name": "YThezu.top"
+        },  
+        "publisher": {
+          "@type": "Organization",
+          "name": "YThezu.top",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://ythezu.top/favicon.svg"
+          }
+        },
+        "datePublished": "2026-01-04",
+        "description": "YouTube Premium 会员到底值不值得买？深度评测无广告、后台播放等核心权益，对比个人订阅与家庭组拼车性价比。"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "首页",
+            "item": "https://ythezu.top"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "博客",
+            "item": "https://ythezu.top/blog/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "2026 YouTube Premium 值得买吗？",
+            "item": "https://ythezu.top/blog/is-youtube-premium-worth-it.html"
+          }
+        ]
       }
-    },
-    "datePublished": "2026-01-04",
-    "description": "YouTube Premium 会员到底值不值得买？深度评测无广告、后台播放等核心权益，对比个人订阅与家庭组拼车性价比。"
+    ]
   }
   </script>
 </head>
@@ -196,6 +223,23 @@
         
         <!-- Left Column: Article (70%) -->
         <main class="w-full lg:w-[70%] lg:pr-8">
+          <!-- Breadcrumb -->
+          <nav aria-label="Breadcrumb" class="mb-6">
+            <ol class="list-none p-0 inline-flex items-center text-sm text-gray-400">
+              <li class="flex items-center">
+                <a href="/" class="hover:text-white transition-colors">首页</a>
+                <i class="fa-solid fa-chevron-right text-xs mx-3 text-gray-600"></i>
+              </li>
+              <li class="flex items-center">
+                <a href="/blog/" class="hover:text-white transition-colors">博客</a>
+                <i class="fa-solid fa-chevron-right text-xs mx-3 text-gray-600"></i>
+              </li>
+              <li class="flex items-center">
+                <span class="text-gray-200 truncate max-w-[200px] md:max-w-md" aria-current="page">2026 YouTube Premium 值得买吗？</span>
+              </li>
+            </ol>
+          </nav>
+
           <div class="bg-[#151515] rounded-3xl p-8 md:p-12 border border-white/5 shadow-2xl relative overflow-hidden">
             <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500"></div>
             <article>
