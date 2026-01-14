@@ -45,7 +45,7 @@
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "CollectionPage",
+        "@type": "Blog",
         "headline": "YouTube 会员攻略与资讯",
         "description": "探索 YouTube 会员订阅攻略、省钱指南及深度评测。",
         "url": "https://ythezu.top/blog/",
@@ -56,7 +56,51 @@
             "@type": "ImageObject",
             "url": "https://ythezu.top/favicon.svg"
           }
-        }
+        },
+        "blogPost": [
+          {
+            "@type": "BlogPosting",
+            "headline": "YouTube 会员 vs 频道会员区别？",
+            "url": "https://ythezu.top/blog/youtube-premium-vs-channel-membership.html",
+            "datePublished": "2026-01-14",
+            "description": "一个是官方全家桶，一个是创作者小灶。本文深度解析两者权益、费用及适用人群，教你如何避坑。"
+          },
+          {
+            "@type": "BlogPosting",
+            "headline": "YouTube 频道怎么做？从0到1运营全攻略",
+            "url": "https://ythezu.top/blog/youtube-channel-operation-guide.html",
+            "datePublished": "2026-01-14",
+            "description": "想做 YouTube 却无从下手？本文为你拆解 YouTube 账号运营的5个关键步骤，从精准定位、养号启动到内容优化与数据复盘。"
+          },
+          {
+            "@type": "BlogPosting",
+            "headline": "YouTube 会员怎么买最划算？",
+            "url": "https://ythezu.top/blog/how-to-buy-youtube-premium-cheap.html",
+            "datePublished": "2026-01-14",
+            "description": "深度解析家庭组拼车、学生优惠、个人订阅及跨区购买4种方案，从价格、风险、便利性全方位对比，助你每年省下上千元。"
+          },
+          {
+            "@type": "BlogPosting",
+            "headline": "YouTube 会员值得买吗？",
+            "url": "https://ythezu.top/blog/is-youtube-premium-worth-it.html",
+            "datePublished": "2026-01-04",
+            "description": "真实评测去广告、后台播放等核心权益。对比个人订阅与家庭组拼车，帮你算笔账。"
+          },
+          {
+            "@type": "BlogPosting",
+            "headline": "YouTube 会员哪个区最便宜？",
+            "url": "https://ythezu.top/blog/youtube-premium-cheapest-region-guide.html",
+            "datePublished": "2026-01-04",
+            "description": "揭秘全球价格洼地，对比印度、土耳其、阿根廷区现状。家庭组拼车真的是最优解吗？"
+          },
+          {
+            "@type": "BlogPosting",
+            "headline": "YouTube 会员 vs Music 会员 区别大解析？",
+            "url": "https://ythezu.top/blog/youtube-premium-vs-music-premium.html",
+            "datePublished": "2026-01-04",
+            "description": "买全家桶还是只买音乐？深度对比两者权益、价格及适用人群，教你如何避坑。"
+          }
+        ]
       },
       {
         "@type": "BreadcrumbList",
@@ -86,8 +130,8 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-20">
         
-        <a href="/" class="flex items-center gap-2 group">
-          <svg class="w-8 h-8 shadow-lg group-hover:scale-105 transition-transform duration-300" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <a href="/" class="flex items-center gap-2 group" rel="home" aria-label="返回首页">
+          <svg class="w-8 h-8 shadow-lg group-hover:scale-105 transition-transform duration-300" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <rect width="512" height="512" rx="100" fill="#1a1a1a"/>
             <path d="M140 120L230 290V400H282V290L372 120H315L256 245L197 120H140Z" fill="#FF0000"/>
           </svg>
@@ -134,15 +178,15 @@
   </nav>
 
   <!-- Main Content -->
-  <div class="pt-32 pb-24 bg-[#0f0f0f]">
+  <main class="pt-32 pb-24 bg-[#0f0f0f]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
       <!-- Breadcrumb -->
       <nav aria-label="Breadcrumb" class="mb-8">
         <ol class="list-none p-0 inline-flex items-center text-sm text-gray-400">
           <li class="flex items-center">
-            <a href="/" class="hover:text-white transition-colors">首页</a>
-            <i class="fa-solid fa-chevron-right text-xs mx-3 text-gray-600"></i>
+            <a href="/" class="hover:text-white transition-colors" rel="home">首页</a>
+            <i class="fa-solid fa-chevron-right text-xs mx-3 text-gray-600" aria-hidden="true"></i>
           </li>
           <li class="flex items-center">
             <span class="text-gray-200" aria-current="page">博客</span>
@@ -159,9 +203,9 @@
         </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8" role="list">
         
-        <a href="/blog/youtube-premium-vs-channel-membership.html" class="group block rounded-3xl bg-[#151515] border border-white/5 overflow-hidden hover:border-red-500/30 transition duration-300 flex flex-col h-full">
+        <a href="/blog/youtube-premium-vs-channel-membership.html" role="listitem" title="阅读详情：YouTube 会员 vs 频道会员区别？" class="group block rounded-3xl bg-[#151515] border border-white/5 overflow-hidden hover:border-red-500/30 transition duration-300 flex flex-col h-full">
           <div class="h-48 bg-gradient-to-br from-pink-900/20 to-black relative shrink-0">
             <div class="absolute inset-0 flex items-center justify-center">
               <i class="fa-solid fa-circle-question text-5xl text-pink-500/30 group-hover:text-pink-500/50 transition duration-300"></i>
@@ -169,7 +213,7 @@
             <div class="absolute bottom-4 left-4 bg-pink-600 text-white text-xs font-bold px-2 py-1 rounded">新手必读</div>
           </div>
           <div class="p-6 flex flex-col flex-1">
-            <h3 class="text-xl font-bold text-white mb-3 group-hover:text-pink-400 transition">YouTube 会员 vs 频道会员区别？</h3>
+            <h2 class="text-xl font-bold text-white mb-3 group-hover:text-pink-400 transition">YouTube 会员 vs 频道会员区别？</h2>
             <p class="text-sm text-gray-400 line-clamp-2 mb-4 flex-1">
               一个是官方全家桶，一个是创作者小灶。本文深度解析两者权益、费用及适用人群，教你如何避坑。
             </p>
@@ -181,7 +225,7 @@
           </div>
         </a>
 
-        <a href="/blog/youtube-channel-operation-guide.html" class="group block rounded-3xl bg-[#151515] border border-white/5 overflow-hidden hover:border-red-500/30 transition duration-300 flex flex-col h-full">
+        <a href="/blog/youtube-channel-operation-guide.html" role="listitem" title="阅读详情：YouTube 频道怎么做？从0到1运营全攻略" class="group block rounded-3xl bg-[#151515] border border-white/5 overflow-hidden hover:border-red-500/30 transition duration-300 flex flex-col h-full">
           <div class="h-48 bg-gradient-to-br from-orange-900/20 to-black relative shrink-0">
             <div class="absolute inset-0 flex items-center justify-center">
               <i class="fa-solid fa-lightbulb text-5xl text-orange-500/30 group-hover:text-orange-500/50 transition duration-300"></i>
@@ -189,7 +233,7 @@
             <div class="absolute bottom-4 left-4 bg-orange-600 text-white text-xs font-bold px-2 py-1 rounded">运营干货</div>
           </div>
           <div class="p-6 flex flex-col flex-1">
-            <h3 class="text-xl font-bold text-white mb-3 group-hover:text-orange-400 transition">YouTube 频道怎么做？从0到1运营全攻略</h3>
+            <h2 class="text-xl font-bold text-white mb-3 group-hover:text-orange-400 transition">YouTube 频道怎么做？从0到1运营全攻略</h2>
             <p class="text-sm text-gray-400 line-clamp-2 mb-4 flex-1">
               想做 YouTube 却无从下手？本文为你拆解 YouTube 账号运营的5个关键步骤，从精准定位、养号启动到内容优化与数据复盘。
             </p>
@@ -201,7 +245,7 @@
           </div>
         </a>
 
-        <a href="/blog/how-to-buy-youtube-premium-cheap.html" class="group block rounded-3xl bg-[#151515] border border-white/5 overflow-hidden hover:border-red-500/30 transition duration-300 flex flex-col h-full">
+        <a href="/blog/how-to-buy-youtube-premium-cheap.html" role="listitem" title="阅读详情：YouTube 会员怎么买最划算？" class="group block rounded-3xl bg-[#151515] border border-white/5 overflow-hidden hover:border-red-500/30 transition duration-300 flex flex-col h-full">
           <div class="h-48 bg-gradient-to-br from-green-900/20 to-black relative shrink-0">
             <div class="absolute inset-0 flex items-center justify-center">
               <i class="fa-solid fa-money-bill-wave text-5xl text-green-500/30 group-hover:text-green-500/50 transition duration-300"></i>
@@ -209,7 +253,7 @@
             <div class="absolute bottom-4 left-4 bg-green-600 text-white text-xs font-bold px-2 py-1 rounded">省钱指南</div>
           </div>
           <div class="p-6 flex flex-col flex-1">
-            <h3 class="text-xl font-bold text-white mb-3 group-hover:text-green-400 transition">YouTube 会员怎么买最划算？</h3>
+            <h2 class="text-xl font-bold text-white mb-3 group-hover:text-green-400 transition">YouTube 会员怎么买最划算？</h2>
             <p class="text-sm text-gray-400 line-clamp-2 mb-4 flex-1">
               深度解析家庭组拼车、学生优惠、个人订阅及跨区购买4种方案，从价格、风险、便利性全方位对比，助你每年省下上千元。
             </p>
@@ -221,7 +265,7 @@
           </div>
         </a>
 
-        <a href="/blog/is-youtube-premium-worth-it.html" class="group block rounded-3xl bg-[#151515] border border-white/5 overflow-hidden hover:border-red-500/30 transition duration-300 flex flex-col h-full">
+        <a href="/blog/is-youtube-premium-worth-it.html" role="listitem" title="阅读详情：YouTube 会员值得买吗？" class="group block rounded-3xl bg-[#151515] border border-white/5 overflow-hidden hover:border-red-500/30 transition duration-300 flex flex-col h-full">
           <div class="h-48 bg-gradient-to-br from-purple-900/20 to-black relative shrink-0">
             <div class="absolute inset-0 flex items-center justify-center">
               <i class="fa-solid fa-gem text-5xl text-purple-500/30 group-hover:text-purple-500/50 transition duration-300"></i>
@@ -229,7 +273,7 @@
             <div class="absolute bottom-4 left-4 bg-purple-600 text-white text-xs font-bold px-2 py-1 rounded">深度评测</div>
           </div>
           <div class="p-6 flex flex-col flex-1">
-            <h3 class="text-xl font-bold text-white mb-3 group-hover:text-purple-400 transition">YouTube 会员值得买吗？</h3>
+            <h2 class="text-xl font-bold text-white mb-3 group-hover:text-purple-400 transition">YouTube 会员值得买吗？</h2>
             <p class="text-sm text-gray-400 line-clamp-2 mb-4 flex-1">
               真实评测去广告、后台播放等核心权益。对比个人订阅与家庭组拼车，帮你算笔账。
             </p>
@@ -241,7 +285,7 @@
           </div>
         </a>
 
-        <a href="/blog/youtube-premium-cheapest-region-guide.html" class="group block rounded-3xl bg-[#151515] border border-white/5 overflow-hidden hover:border-red-500/30 transition duration-300 flex flex-col h-full">
+        <a href="/blog/youtube-premium-cheapest-region-guide.html" role="listitem" title="阅读详情：YouTube 会员哪个区最便宜？" class="group block rounded-3xl bg-[#151515] border border-white/5 overflow-hidden hover:border-red-500/30 transition duration-300 flex flex-col h-full">
           <div class="h-48 bg-gradient-to-br from-red-900/20 to-black relative shrink-0">
             <div class="absolute inset-0 flex items-center justify-center">
               <i class="fa-solid fa-earth-americas text-5xl text-red-500/30 group-hover:text-red-500/50 transition duration-300"></i>
@@ -249,7 +293,7 @@
             <div class="absolute bottom-4 left-4 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded">省钱必读</div>
           </div>
           <div class="p-6 flex flex-col flex-1">
-            <h3 class="text-xl font-bold text-white mb-3 group-hover:text-red-400 transition">YouTube 会员哪个区最便宜？</h3>
+            <h2 class="text-xl font-bold text-white mb-3 group-hover:text-red-400 transition">YouTube 会员哪个区最便宜？</h2>
             <p class="text-sm text-gray-400 line-clamp-2 mb-4 flex-1">
               揭秘全球价格洼地，对比印度、土耳其、阿根廷区现状。家庭组拼车真的是最优解吗？
             </p>
@@ -261,7 +305,7 @@
           </div>
         </a>
 
-        <a href="/blog/youtube-premium-vs-music-premium.html" class="group block rounded-3xl bg-[#151515] border border-white/5 overflow-hidden hover:border-red-500/30 transition duration-300 flex flex-col h-full">
+        <a href="/blog/youtube-premium-vs-music-premium.html" role="listitem" title="阅读详情：YouTube 会员 vs Music 会员 区别大解析？" class="group block rounded-3xl bg-[#151515] border border-white/5 overflow-hidden hover:border-red-500/30 transition duration-300 flex flex-col h-full">
           <div class="h-48 bg-gradient-to-br from-blue-900/20 to-black relative shrink-0">
             <div class="absolute inset-0 flex items-center justify-center">
               <i class="fa-solid fa-music text-5xl text-blue-500/30 group-hover:text-blue-500/50 transition duration-300"></i>
@@ -269,7 +313,7 @@
             <div class="absolute bottom-4 left-4 bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded">对比评测</div>
           </div>
           <div class="p-6 flex flex-col flex-1">
-            <h3 class="text-xl font-bold text-white mb-3 group-hover:text-blue-400 transition">YouTube 会员 vs Music 会员 区别大解析？</h3>
+            <h2 class="text-xl font-bold text-white mb-3 group-hover:text-blue-400 transition">YouTube 会员 vs Music 会员 区别大解析？</h2>
             <p class="text-sm text-gray-400 line-clamp-2 mb-4 flex-1">
               买全家桶还是只买音乐？深度对比两者权益、价格及适用人群，教你如何避坑。
             </p>
@@ -284,7 +328,7 @@
       </div>
 
     </div>
-  </div>
+  </main>
 
   <!-- Footer -->
   <footer class="relative bg-[#050505] border-t border-white/5 pt-20 pb-10 overflow-hidden">
