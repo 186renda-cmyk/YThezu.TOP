@@ -109,8 +109,91 @@
   </div>
 
   <!-- Footer -->
-  <footer class="bg-[#050505] border-t border-white/5 py-8 text-center">
-    <p class="text-gray-600 text-sm">&copy; 2025 YThezu.TOP. All rights reserved.</p>
+  <footer class="relative bg-[#050505] border-t border-white/5 pt-20 pb-10 overflow-hidden">
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-red-600/50 to-transparent"></div>
+    <div class="absolute bottom-0 left-0 w-[600px] h-[600px] bg-red-900/5 rounded-full blur-[128px] pointer-events-none"></div>
+    <div class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-purple-900/5 rounded-full blur-[128px] pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+            
+            <!-- Brand Column -->
+            <div class="space-y-6">
+                <a href="/" class="flex items-center gap-2 group">
+                  <svg class="w-8 h-8 shadow-lg group-hover:scale-105 transition-transform duration-300" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="512" height="512" rx="100" fill="#1a1a1a"/>
+                    <path d="M140 120L230 290V400H282V290L372 120H315L256 245L197 120H140Z" fill="#FF0000"/>
+                  </svg>
+                  <div class="flex items-center">
+                    <span class="font-sans text-xl font-black tracking-tighter text-white">YThezu</span>
+                    <span class="w-1.5 h-1.5 rounded-full bg-red-600 mx-1 mt-1"></span>
+                    <span class="font-mono text-sm font-bold text-red-500 mt-0.5 opacity-90 group-hover:opacity-100 transition">TOP</span>
+                  </div>
+                </a>
+                
+                <p class="text-gray-500 text-sm leading-relaxed">
+                    国内首选的流媒体合租导航平台。为您甄选全球优质、稳定、低价的 YouTube Premium 家庭组订阅服务。
+                </p>
+
+                <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-[#0a0a0a] border border-white/5 rounded-full hover:border-green-500/30 transition duration-300 group cursor-default">
+                    <span class="relative flex h-2 w-2">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                    </span>
+                    <span class="text-xs font-mono font-medium text-gray-400 group-hover:text-green-400 transition">
+                        System Operational
+                    </span>
+                </div>
+            </div>
+
+            <!-- Product Column -->
+            <div>
+                <h4 class="text-white font-bold mb-6 text-sm uppercase tracking-wider">产品服务</h4>
+                <ul class="space-y-4 text-sm text-gray-500">
+                    <li><a href="/#features" class="hover:text-white transition-colors duration-200 block">会员权益</a></li>
+                    <li><a href="/#pricing" class="hover:text-white transition-colors duration-200 block">价格方案</a></li>
+                    <li><a href="/#reviews" class="hover:text-white transition-colors duration-200 block">用户评价</a></li>
+                    <li><a href="/blog/" class="hover:text-white transition-colors duration-200 block">博客攻略</a></li>
+                </ul>
+            </div>
+
+            <!-- Resources Column -->
+            <div>
+                <h4 class="text-white font-bold mb-6 text-sm uppercase tracking-wider">帮助支持</h4>
+                <ul class="space-y-4 text-sm text-gray-500">
+                    <li><a href="/#faq" class="hover:text-white transition-colors duration-200 block">常见问题</a></li>
+                    <li><a href="/#troubleshooting" class="hover:text-white transition-colors duration-200 block">故障排查</a></li>
+                    <li><a href="/#safety-guide" class="hover:text-white transition-colors duration-200 block">合租避坑指南</a></li>
+                    <li><a href="mailto:support@ythezu.top" class="hover:text-white transition-colors duration-200 block">联系客服</a></li>
+                </ul>
+            </div>
+
+             <!-- Legal/Payment Column -->
+            <div>
+                <h4 class="text-white font-bold mb-6 text-sm uppercase tracking-wider">安全支付</h4>
+                 <div class="flex gap-3 mb-6">
+                    <div class="w-10 h-10 rounded-lg bg-[#1a1a1a] border border-white/10 flex items-center justify-center text-gray-500 hover:text-[#1677FF] hover:border-[#1677FF]/50 hover:bg-[#1677FF]/10 transition-all duration-300" title="Alipay">
+                        <i class="fa-brands fa-alipay text-xl"></i>
+                    </div>
+                    <div class="w-10 h-10 rounded-lg bg-[#1a1a1a] border border-white/10 flex items-center justify-center text-gray-500 hover:text-[#07C160] hover:border-[#07C160]/50 hover:bg-[#07C160]/10 transition-all duration-300" title="WeChat Pay">
+                        <i class="fa-brands fa-weixin text-xl"></i>
+                    </div>
+                </div>
+                 <h4 class="text-white font-bold mb-4 text-sm uppercase tracking-wider">法律信息</h4>
+                 <ul class="space-y-2 text-xs text-gray-600">
+                    <li><a href="/privacy.html" class="hover:text-gray-400 transition">服务条款</a></li>
+                    <li><a href="/privacy.html" class="hover:text-gray-400 transition">隐私政策</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="text-[11px] text-gray-600">&copy; 2025 YThezu.TOP. All rights reserved.</p>
+             <p class="text-[11px] text-gray-600 max-w-lg text-center md:text-right opacity-60">
+                Disclaimer: YThezu.top is an independent affiliate service provider. YouTube™ is a registered trademark of Google LLC. We are not affiliated with, associated with, or endorsed by Google LLC.
+            </p>
+        </div>
+    </div>
   </footer>
 
 </body>
