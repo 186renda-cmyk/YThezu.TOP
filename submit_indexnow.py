@@ -15,6 +15,10 @@ def submit_to_indexnow():
         f"https://{host}/blog/is-youtube-premium-worth-it.html",
         f"https://{host}/blog/youtube-premium-cheapest-region-guide.html",
         f"https://{host}/blog/youtube-premium-vs-music-premium.html",
+        f"https://{host}/blog/index.html",
+        f"https://{host}/blog/youtube-premium-vs-channel-membership.html",
+        f"https://{host}/blog/how-to-buy-youtube-premium-cheap.html",
+        f"https://{host}/blog/youtube-channel-operation-guide.html",
         f"https://{host}/support.html",
         f"https://{host}/privacy.html"
     ]
