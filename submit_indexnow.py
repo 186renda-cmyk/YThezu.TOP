@@ -1,6 +1,36 @@
 import urllib.request
 import json
 import ssl
+import xml.etree.ElementTree as ET
+import os
+
+def get_urls_from_sitemap(sitemap_path):
+    """Parse local sitemap.xml to extract URLs."""
+    urls = []
+    try:
+        if not os.path.exists(sitemap_path):
+            print(f"Warning: Sitemap not found at {sitemap_path}")
+            return []
+
+        tree = ET.parse(sitemap_path)
+        root = tree.getroot()
+        
+        # Handle the default namespace in sitemap.xml
+        # Standard sitemap namespace is usually http://www.sitemaps.org/schemas/sitemap/0.9
+        namespace = ''
+        if '}' in root.tag:
+            namespace = root.tag.split('}')[0] + '}'
+            
+        for url in root.findall(f'{namespace}url'):
+            loc = url.find(f'{namespace}loc')
+            if loc is not None and loc.text:
+                urls.append(loc.text.strip())
+        
+        print(f"Found {len(urls)} URLs in sitemap.")
+        return urls
+    except Exception as e:
+        print(f"Error parsing sitemap: {e}")
+        return []
 
 def submit_to_indexnow():
     # Configuration
@@ -8,20 +38,17 @@ def submit_to_indexnow():
     key = "94f28ee04780468888bc7c96238dc868"
     key_location = f"https://{host}/{key}.txt"
     
-    # List of URLs to submit
-    # In a production environment, you might want to parse sitemap.xml dynamically
-    url_list = [
-        f"https://{host}/",
-        f"https://{host}/blog/is-youtube-premium-worth-it",
-        f"https://{host}/blog/youtube-premium-cheapest-region-guide",
-        f"https://{host}/blog/youtube-premium-vs-music-premium",
-        f"https://{host}/blog/",
-        f"https://{host}/blog/youtube-premium-vs-channel-membership",
-        f"https://{host}/blog/how-to-buy-youtube-premium-cheap",
-        f"https://{host}/blog/youtube-channel-operation-guide",
-        f"https://{host}/support",
-        f"https://{host}/privacy"
-    ]
+    # Get directory of current script to locate sitemap.xml
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    sitemap_path = os.path.join(current_dir, "sitemap.xml")
+    
+    # Get URLs from sitemap
+    print(f"Reading sitemap from: {sitemap_path}")
+    url_list = get_urls_from_sitemap(sitemap_path)
+    
+    if not url_list:
+        print("No URLs found to submit. Exiting.")
+        return
 
     # IndexNow API Endpoint (Bing is a major provider for IndexNow)
     endpoint = "https://api.indexnow.org/indexnow"
