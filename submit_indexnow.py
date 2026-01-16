@@ -12,15 +12,15 @@ def submit_to_indexnow():
     # In a production environment, you might want to parse sitemap.xml dynamically
     url_list = [
         f"https://{host}/",
-        f"https://{host}/blog/is-youtube-premium-worth-it.html",
-        f"https://{host}/blog/youtube-premium-cheapest-region-guide.html",
-        f"https://{host}/blog/youtube-premium-vs-music-premium.html",
-        f"https://{host}/blog/index.html",
-        f"https://{host}/blog/youtube-premium-vs-channel-membership.html",
-        f"https://{host}/blog/how-to-buy-youtube-premium-cheap.html",
-        f"https://{host}/blog/youtube-channel-operation-guide.html",
-        f"https://{host}/support.html",
-        f"https://{host}/privacy.html"
+        f"https://{host}/blog/is-youtube-premium-worth-it",
+        f"https://{host}/blog/youtube-premium-cheapest-region-guide",
+        f"https://{host}/blog/youtube-premium-vs-music-premium",
+        f"https://{host}/blog/",
+        f"https://{host}/blog/youtube-premium-vs-channel-membership",
+        f"https://{host}/blog/how-to-buy-youtube-premium-cheap",
+        f"https://{host}/blog/youtube-channel-operation-guide",
+        f"https://{host}/support",
+        f"https://{host}/privacy"
     ]
 
     # IndexNow API Endpoint (Bing is a major provider for IndexNow)
