@@ -12,6 +12,24 @@
   <link rel="alternate" hreflang="x-default" href="https://ythezu.top/support.html">
   
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1,
+      "name": "首页",
+      "item": "https://ythezu.top"
+    },{
+      "@type": "ListItem",
+      "position": 2,
+      "name": "服务支持",
+      "item": "https://ythezu.top/support"
+    }]
+  }
+  </script>
   
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -61,6 +79,13 @@
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       
       <div class="text-center mb-16">
+        <nav aria-label="breadcrumb" class="flex justify-center mb-6 text-sm text-gray-500">
+            <ol class="flex items-center space-x-2">
+                <li><a href="/" class="hover:text-white transition">首页</a></li>
+                <li><i class="fa-solid fa-chevron-right text-xs mx-2"></i></li>
+                <li class="text-white" aria-current="page">服务支持</li>
+            </ol>
+        </nav>
         <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-6">服务支持中心</h1>
         <p class="text-gray-400 text-lg">我们需要怎么帮助您？</p>
       </div>
@@ -170,7 +195,7 @@
                     <li><a href="/#faq" class="hover:text-white transition-colors duration-200 block">常见问题</a></li>
                     <li><a href="/#troubleshooting" class="hover:text-white transition-colors duration-200 block">故障排查</a></li>
                     <li><a href="/#safety-guide" class="hover:text-white transition-colors duration-200 block">合租避坑指南</a></li>
-                    <li><a href="mailto:support@ythezu.top" class="hover:text-white transition-colors duration-200 block">联系客服</a></li>
+                    <li><a href="/support" class="hover:text-white transition-colors duration-200 block">联系客服</a></li>
                 </ul>
             </div>
 
