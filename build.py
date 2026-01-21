@@ -29,7 +29,61 @@ class BlogBuilder:
         self.process_posts()
         self.update_homepage()
         self.update_blog_index()
+        self.update_sitemap()
         print("Build complete.")
+
+    def update_sitemap(self):
+        print("Updating sitemap.xml...")
+        sitemap_path = os.path.join(PROJECT_ROOT, 'sitemap.xml')
+        
+        # Static Pages with Priorities
+        static_pages = [
+            {'url': '/', 'priority': '1.0'},
+            {'url': '/blog/', 'priority': '0.9'},
+            {'url': '/support', 'priority': '0.5'},
+            {'url': '/privacy', 'priority': '0.5'}
+        ]
+        
+        # Determine latest date for homepage
+        latest_date = "2026-01-01"
+        if self.posts_metadata:
+            latest_date = self.posts_metadata[0]['date']
+            
+        xml_content = ['<?xml version="1.0" encoding="UTF-8"?>']
+        xml_content.append('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">')
+        
+        # Add Static Pages
+        for page in static_pages:
+            url = page['url']
+            if url == '/': full_url = self.site_url + '/'
+            elif url.endswith('/'): full_url = self.site_url + url
+            else: full_url = self.site_url + url
+            
+            # Use latest post date for homepage and blog index, or today's date
+            # For simplicity, let's use the latest post date for dynamic pages
+            date = latest_date
+            
+            xml_content.append('  <url>')
+            xml_content.append(f'    <loc>{full_url}</loc>')
+            xml_content.append(f'    <lastmod>{date}</lastmod>')
+            xml_content.append(f'    <priority>{page["priority"]}</priority>')
+            xml_content.append('  </url>')
+            
+        # Add Blog Posts
+        for p in self.posts_metadata:
+            full_url = self.site_url + p['url']
+            date = p['date']
+            
+            xml_content.append('  <url>')
+            xml_content.append(f'    <loc>{full_url}</loc>')
+            xml_content.append(f'    <lastmod>{date}</lastmod>')
+            xml_content.append('    <priority>0.8</priority>')
+            xml_content.append('  </url>')
+            
+        xml_content.append('</urlset>')
+        
+        with open(sitemap_path, 'w', encoding='utf-8') as f:
+            f.write('\n'.join(xml_content))
 
     def clean_link(self, url):
         if not url:
@@ -145,34 +199,55 @@ class BlogBuilder:
                 soup = BeautifulSoup(f, 'html.parser')
                 
                 # Extract metadata
-                title = soup.title.string if soup.title else ""
+                title = soup.title.string.strip() if soup.title and soup.title.string else ""
                 desc = soup.find('meta', attrs={'name': 'description'})
                 description = desc['content'] if desc else ""
                 
-                # Extract date - try to find it in the content or meta
+                # Extract Date - Try JSON-LD first
                 date_str = "2026-01-01" # Default
                 
-                # Try JSON-LD first
                 ld_json = soup.find('script', type='application/ld+json')
-                if ld_json:
+                if ld_json and ld_json.string:
                     try:
-                        data = json.loads(ld_json.string)
+                        data = json.loads(ld_json.string.strip())
                         if isinstance(data, dict) and '@graph' in data:
                             for item in data['graph']:
                                 if item.get('@type') == 'Article' or item.get('@type') == 'BlogPosting':
                                     if 'datePublished' in item:
                                         date_str = item['datePublished']
-                    except:
+                    except Exception as e:
+                        print(f"Error parsing JSON-LD in {filename}: {e}")
                         pass
                 
-                # Try visual date
+                # Fallback: Try visual date
                 if date_str == "2026-01-01":
                     date_icon = soup.find('i', class_='fa-calendar')
                     if date_icon and date_icon.parent:
                         date_text = date_icon.parent.get_text().strip()
+                        # Extract date pattern YYYY-MM-DD
                         match = re.search(r'\d{4}-\d{2}-\d{2}', date_text)
                         if match:
                             date_str = match.group(0)
+                            print(f"  Extracted visual date for {filename}: {date_str}")
+                
+                # Extract Custom Metadata for Homepage Cards
+                theme_color = "red" # Default
+                icon_class = "fa-file-lines" # Default
+                badge_text = "最新发布" # Default
+                
+                meta_color = soup.find('meta', attrs={'name': 'x-theme-color'})
+                if meta_color and meta_color.get('content'): 
+                    theme_color = meta_color['content']
+                
+                meta_icon = soup.find('meta', attrs={'name': 'x-icon'})
+                if meta_icon and meta_icon.get('content'): 
+                    icon_class = meta_icon['content']
+                
+                meta_badge = soup.find('meta', attrs={'name': 'x-badge'})
+                if meta_badge and meta_badge.get('content'): 
+                    badge_text = meta_badge['content']
+                
+                print(f"  Metadata for {filename}: color={theme_color}, icon={icon_class}, badge={badge_text}")
 
                 # Extract Image
                 og_image = soup.find('meta', property='og:image')
@@ -185,7 +260,10 @@ class BlogBuilder:
                     'url': f"/blog/{filename.replace('.html', '')}",
                     'image': image_url,
                     'filename': filename,
-                    'path': filepath
+                    'path': filepath,
+                    'theme_color': theme_color,
+                    'icon_class': icon_class,
+                    'badge_text': badge_text
                 })
 
     def process_posts(self):
@@ -298,6 +376,15 @@ class BlogBuilder:
             head.append(json_ld)
         head.append(Comment(" Group E: Structured Data "))
 
+        # Group F: Custom Metadata
+        if post_meta.get('theme_color'):
+            head.append(soup.new_tag('meta', attrs={'name': 'x-theme-color', 'content': post_meta['theme_color']}))
+        if post_meta.get('icon_class'):
+            head.append(soup.new_tag('meta', attrs={'name': 'x-icon', 'content': post_meta['icon_class']}))
+        if post_meta.get('badge_text'):
+            head.append(soup.new_tag('meta', attrs={'name': 'x-badge', 'content': post_meta['badge_text']}))
+        head.append(Comment(" Group F: Custom Metadata "))
+
         # Safety Net: Deduplicate Favicons in Head
         seen_favicons = set()
         # Collect links to remove
@@ -376,7 +463,12 @@ class BlogBuilder:
                 a['href'] = self.clean_link(a['href'])
                 
         with open(filepath, 'w', encoding='utf-8') as f:
-            f.write(str(soup))
+            f.write(soup.prettify())
+
+    def write_formatted_html(self, filepath, soup):
+        print(f"  Writing formatted HTML to {filepath}...")
+        with open(filepath, 'w', encoding='utf-8') as f:
+            f.write(soup.prettify())
 
     def update_homepage(self):
         print("Updating homepage...")
@@ -387,24 +479,38 @@ class BlogBuilder:
         if guides_section:
             grid = guides_section.find('div', class_='grid')
             if grid:
+                # Update grid columns to support 4 items
+                grid['class'] = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
                 grid.clear()
-                for p in self.posts_metadata[:3]:
-                    a_tag = soup.new_tag('a', href=p['url'], attrs={'class': 'group block rounded-3xl bg-[#151515] border border-white/5 overflow-hidden hover:border-red-500/30 transition duration-300'})
+                
+                # Show top 4 posts
+                for p in self.posts_metadata[:4]:
+                    theme = p['theme_color']
+                    # Map simple color names to tailwind classes if needed, or use string interpolation
+                    # Assuming theme is like 'red', 'green', 'blue', 'purple', 'orange', 'pink'
                     
-                    div_img = soup.new_tag('div', attrs={'class': 'h-48 bg-gradient-to-br from-red-900/20 to-black relative'})
+                    a_tag = soup.new_tag('a', href=p['url'], attrs={'class': f"group block rounded-3xl bg-[#151515] border border-white/5 overflow-hidden hover:border-{theme}-500/30 transition duration-300"})
+                    
+                    div_img = soup.new_tag('div', attrs={'class': f"h-48 bg-gradient-to-br from-{theme}-900/20 to-black relative"})
                     div_icon_container = soup.new_tag('div', attrs={'class': 'absolute inset-0 flex items-center justify-center'})
-                    icon = soup.new_tag('i', attrs={'class': 'fa-solid fa-file-lines text-5xl text-red-500/30 group-hover:text-red-500/50 transition duration-300'})
+                    
+                    # Icon
+                    icon_cls = p['icon_class']
+                    if not icon_cls.startswith('fa-'): icon_cls = f"fa-solid {icon_cls}" # fallback
+                    else: icon_cls = f"fa-solid {icon_cls}"
+                    
+                    icon = soup.new_tag('i', attrs={'class': f"{icon_cls} text-5xl text-{theme}-500/30 group-hover:text-{theme}-500/50 transition duration-300"})
                     div_icon_container.append(icon)
                     div_img.append(div_icon_container)
                     
-                    div_badge = soup.new_tag('div', attrs={'class': 'absolute bottom-4 left-4 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded'})
-                    div_badge.string = "最新发布"
+                    div_badge = soup.new_tag('div', attrs={'class': f"absolute bottom-4 left-4 bg-{theme}-600 text-white text-xs font-bold px-2 py-1 rounded"})
+                    div_badge.string = p['badge_text']
                     div_img.append(div_badge)
                     
                     a_tag.append(div_img)
                     
                     div_content = soup.new_tag('div', attrs={'class': 'p-6'})
-                    h3 = soup.new_tag('h3', attrs={'class': 'text-xl font-bold text-white mb-3 group-hover:text-red-400 transition'})
+                    h3 = soup.new_tag('h3', attrs={'class': f"text-xl font-bold text-white mb-3 group-hover:text-{theme}-400 transition"})
                     h3.string = p['title']
                     div_content.append(h3)
                     
@@ -418,13 +524,16 @@ class BlogBuilder:
                     span_date.append(f" {p['date']}")
                     div_meta.append(span_date)
                     
+                    # Hot/Star icon for engagement if needed
+                    span_extra = soup.new_tag('span', attrs={'class': 'ml-2'})
+                    # We could add more logic here, but keeping it simple for now
+                    
                     div_content.append(div_meta)
                     a_tag.append(div_content)
                     
                     grid.append(a_tag)
 
-        with open(INDEX_PATH, 'w', encoding='utf-8') as f:
-            f.write(str(soup))
+        self.write_formatted_html(INDEX_PATH, soup)
 
     def update_blog_index(self):
         blog_index_path = os.path.join(BLOG_DIR, 'index.html')
@@ -440,8 +549,114 @@ class BlogBuilder:
                 old_footer = soup.body.find('footer')
                 if old_footer: old_footer.replace_with(copy.copy(self.footer_html))
             
-            with open(blog_index_path, 'w', encoding='utf-8') as f:
-                f.write(str(soup))
+            # Update Article Grid
+            grid = soup.find('div', role='list')
+            # Fallback if role=list is missing, look for grid class
+            if not grid:
+                grids = soup.find_all('div', class_='grid')
+                if grids:
+                    grid = grids[0] # Assume first grid is the post list
+            
+            if grid:
+                grid.clear()
+                # Update grid class to be responsive
+                grid['class'] = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+                
+                for p in self.posts_metadata:
+                    theme = p['theme_color']
+                    
+                    a_tag = soup.new_tag('a', href=p['url'], attrs={'class': f"group block rounded-3xl bg-[#151515] border border-white/5 overflow-hidden hover:border-{theme}-500/30 transition duration-300 flex flex-col h-full", 'role': 'listitem'})
+                    
+                    div_img = soup.new_tag('div', attrs={'class': f"h-48 bg-gradient-to-br from-{theme}-900/20 to-black relative shrink-0"})
+                    div_icon_container = soup.new_tag('div', attrs={'class': 'absolute inset-0 flex items-center justify-center'})
+                    
+                    # Icon
+                    icon_cls = p['icon_class']
+                    if not icon_cls.startswith('fa-'): icon_cls = f"fa-solid {icon_cls}" 
+                    else: icon_cls = f"fa-solid {icon_cls}"
+                    
+                    icon = soup.new_tag('i', attrs={'class': f"{icon_cls} text-5xl text-{theme}-500/30 group-hover:text-{theme}-500/50 transition duration-300"})
+                    div_icon_container.append(icon)
+                    div_img.append(div_icon_container)
+                    
+                    div_badge = soup.new_tag('div', attrs={'class': f"absolute bottom-4 left-4 bg-{theme}-600 text-white text-xs font-bold px-2 py-1 rounded"})
+                    div_badge.string = p['badge_text']
+                    div_img.append(div_badge)
+                    
+                    a_tag.append(div_img)
+                    
+                    div_content = soup.new_tag('div', attrs={'class': 'p-6 flex flex-col flex-1'})
+                    h2 = soup.new_tag('h2', attrs={'class': f"text-xl font-bold text-white mb-3 group-hover:text-{theme}-400 transition"})
+                    h2.string = p['title']
+                    div_content.append(h2)
+                    
+                    p_desc = soup.new_tag('p', attrs={'class': 'text-sm text-gray-400 line-clamp-2 mb-4 flex-1'})
+                    p_desc.string = p['description']
+                    div_content.append(p_desc)
+                    
+                    div_meta = soup.new_tag('div', attrs={'class': 'mt-auto flex items-center text-xs text-gray-500'})
+                    span_date = soup.new_tag('span')
+                    span_date.append(soup.new_tag('i', attrs={'class': 'fa-regular fa-clock mr-1'}))
+                    span_date.append(f" {p['date']}")
+                    div_meta.append(span_date)
+                    
+                    span_dot = soup.new_tag('span', attrs={'class': 'mx-2'})
+                    span_dot.string = "·"
+                    div_meta.append(span_dot)
+                    
+                    span_extra = soup.new_tag('span')
+                    icon_extra = soup.new_tag('i', attrs={'class': f"fa-solid fa-star text-{theme}-500/70 mr-1"})
+                    if p['badge_text'] == "省钱必读":
+                         icon_extra['class'] = f"fa-solid fa-fire text-{theme}-500/70 mr-1"
+                    elif p['badge_text'] == "深度评测":
+                         icon_extra['class'] = f"fa-solid fa-eye text-{theme}-500/70 mr-1"
+                    elif p['badge_text'] == "对比评测":
+                         icon_extra['class'] = f"fa-solid fa-scale-balanced text-{theme}-500/70 mr-1"
+                         
+                    recommend_text = " 强烈推荐"
+                    if p['badge_text'] == "省钱必读":
+                         recommend_text = " 热度飙升"
+                    elif p['badge_text'] == "深度评测":
+                         recommend_text = " 编辑推荐"
+                    elif p['badge_text'] == "对比评测":
+                         recommend_text = " 深度对比"
+                         
+                    span_extra.append(icon_extra)
+                    span_extra.append(recommend_text)
+                    div_meta.append(span_extra)
+                    
+                    div_content.append(div_meta)
+                    a_tag.append(div_content)
+                    
+                    grid.append(a_tag) 
+
+            # Inject JSON-LD
+            item_list = {
+                "@context": "https://schema.org",
+                "@type": "ItemList",
+                "itemListElement": []
+            }
+
+            for index, p in enumerate(self.posts_metadata):
+                item = {
+                    "@type": "ListItem",
+                    "position": index + 1,
+                    "url": self.site_url + p['url'],
+                    "name": p['title']
+                }
+                item_list["itemListElement"].append(item)
+            
+            # Find existing script or create new one
+            script_tag = soup.find('script', type='application/ld+json')
+            if script_tag:
+                script_tag.string = json.dumps(item_list, ensure_ascii=False, indent=2)
+            else:
+                script_tag = soup.new_tag('script', type='application/ld+json')
+                script_tag.string = json.dumps(item_list, ensure_ascii=False, indent=2)
+                if soup.head:
+                    soup.head.append(script_tag)
+
+            self.write_formatted_html(blog_index_path, soup)
 
 if __name__ == "__main__":
     builder = BlogBuilder()
