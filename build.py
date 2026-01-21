@@ -19,6 +19,48 @@ class BlogBuilder:
         self.global_styles = [] # To store tailwind/font-awesome from index or blog
         self.site_url = "https://ythezu.top"
 
+    def update_static_page(self, filename):
+        filepath = os.path.join(PROJECT_ROOT, filename)
+        if not os.path.exists(filepath):
+            return
+            
+        print(f"Updating static page {filename}...")
+        with open(filepath, 'r', encoding='utf-8') as f:
+            soup = BeautifulSoup(f, 'html.parser')
+            
+        # Clean up Canonical and Alternates in Head
+        if soup.head:
+            for link in soup.head.find_all('link'):
+                href = link.get('href')
+                if href:
+                    # Remove .html extension for canonical/alternate
+                    if 'canonical' in link.get('rel', []) or 'alternate' in link.get('rel', []):
+                        if href.endswith('.html'):
+                            link['href'] = href[:-5]
+                            
+        # Inject Nav
+        if self.nav_html and soup.body:
+            old_nav = soup.body.find('nav')
+            if old_nav:
+                old_nav.replace_with(copy.copy(self.nav_html))
+            else:
+                soup.body.insert(0, copy.copy(self.nav_html))
+
+        # Inject Footer
+        if self.footer_html and soup.body:
+            old_footer = soup.body.find('footer')
+            if old_footer:
+                old_footer.replace_with(copy.copy(self.footer_html))
+            else:
+                soup.body.append(copy.copy(self.footer_html))
+                
+        # Global Link Cleanup
+        for a in soup.find_all('a'):
+            if a.get('href'):
+                a['href'] = self.clean_link(a['href'])
+
+        self.write_formatted_html(filepath, soup)
+
     def run(self):
         print("Starting build process...")
         self.extract_assets()
@@ -29,6 +71,11 @@ class BlogBuilder:
         self.process_posts()
         self.update_homepage()
         self.update_blog_index()
+        
+        # Update static pages
+        self.update_static_page('support.html')
+        self.update_static_page('privacy.html')
+        
         self.update_sitemap()
         print("Build complete.")
 
@@ -295,6 +342,10 @@ class BlogBuilder:
         canonical_href = canonical_link['href'] if canonical_link else f"{self.site_url}{post_meta['url']}"
         if canonical_href.endswith('.html'):
             canonical_href = canonical_href[:-5]
+        
+        # Clean canonical path
+        if canonical_href.endswith('/index'):
+            canonical_href = canonical_href[:-6]
         
         # JSON-LD
         json_ld = old_head.find('script', type='application/ld+json')
