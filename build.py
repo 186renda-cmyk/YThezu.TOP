@@ -352,6 +352,8 @@ class BlogBuilder:
         
         # Styles / Scripts (Tailwind, FontAwesome, Custom Styles)
         styles_scripts = []
+        has_local_css = False
+        
         for tag in old_head.find_all(['script', 'link', 'style']):
             # Skip SEO/Meta tags we already handled or will regenerate
             if tag.name == 'link':
@@ -363,12 +365,23 @@ class BlogBuilder:
                 href = tag.get('href', '')
                 if 'favicon' in href or 'icon' in href:
                     continue
+                if href == '/assets/style.css':
+                    has_local_css = True
+                    
             if tag.name == 'script':
                 if tag.get('type') == 'application/ld+json':
+                    continue
+                # Remove Tailwind CDN
+                if 'cdn.tailwindcss.com' in tag.get('src', ''):
                     continue
             
             # Keep Tailwind, FontAwesome, Custom CSS
             styles_scripts.append(tag)
+
+        # Inject local CSS if missing
+        if not has_local_css:
+            local_css = soup.new_tag('link', href='/assets/style.css', rel='stylesheet')
+            styles_scripts.insert(0, local_css)
 
         # 2. Clear Head
         if soup.head:

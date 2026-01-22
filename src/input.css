@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+@source "../*.html";
+@source "../blog/*.html";
+@source "../*.py";
