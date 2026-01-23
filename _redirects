@@ -2,7 +2,7 @@
 # Format: /local-path target-url status-code
 
 # [cite_start]星际放映厅 (Star Cinema) - 280元/年 [cite: 56]
-/go/star  https://www.naifeistation.com/i/Satqr  302
+/go/star  https://www.naifeistation.com/index/buy?id=233&invite=3903  302
 
 # [cite_start]银河录像局 (Galaxy) - 高稳定性 [cite: 63]
 /go/yinhe  https://nf.video/24MAX  302
