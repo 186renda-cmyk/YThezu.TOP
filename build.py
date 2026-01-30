@@ -353,6 +353,7 @@ class BlogBuilder:
         # Styles / Scripts (Tailwind, FontAwesome, Custom Styles)
         styles_scripts = []
         has_local_css = False
+        has_tailwind_cdn = False
         
         for tag in old_head.find_all(['script', 'link', 'style']):
             # Skip SEO/Meta tags we already handled or will regenerate
@@ -367,21 +368,22 @@ class BlogBuilder:
                     continue
                 if href == '/assets/style.css':
                     has_local_css = True
-                    
+                    continue # Skip local CSS
+            
             if tag.name == 'script':
                 if tag.get('type') == 'application/ld+json':
                     continue
-                # Remove Tailwind CDN
+                # Keep Tailwind CDN
                 if 'cdn.tailwindcss.com' in tag.get('src', ''):
-                    continue
+                    has_tailwind_cdn = True
             
             # Keep Tailwind, FontAwesome, Custom CSS
             styles_scripts.append(tag)
 
-        # Inject local CSS if missing
-        if not has_local_css:
-            local_css = soup.new_tag('link', href='/assets/style.css', rel='stylesheet')
-            styles_scripts.insert(0, local_css)
+        # Inject Tailwind CDN if missing
+        if not has_tailwind_cdn:
+            tailwind_script = soup.new_tag('script', src='https://cdn.tailwindcss.com')
+            styles_scripts.insert(0, tailwind_script)
 
         # 2. Clear Head
         if soup.head:
@@ -498,7 +500,7 @@ class BlogBuilder:
             grid_div = soup.new_tag('div', attrs={'class': 'grid grid-cols-1 md:grid-cols-2 gap-6'})
             
             other_posts = [p for p in self.posts_metadata if p['filename'] != post_meta['filename']]
-            selected_posts = other_posts[:2]
+            selected_posts = other_posts[:4]
             
             for p in selected_posts:
                 a_tag = soup.new_tag('a', href=p['url'], attrs={'class': 'block p-4 rounded-xl bg-white/5 hover:bg-white/10 transition border border-white/5'})

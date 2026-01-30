@@ -24,7 +24,7 @@ class SEOAudit:
         self.issues = []
         
         # Configuration
-        self.ignore_paths = ['.git', 'node_modules', '__pycache__', '.vscode', '.idea']
+        self.ignore_paths = ['.git', 'node_modules', '__pycache__', '.vscode', '.idea', 'MasterTool']
         self.ignore_url_prefixes = ['/go/', 'javascript:', 'mailto:', '#']
         self.ignore_filenames = ['google', '404.html'] # Partial match
         
